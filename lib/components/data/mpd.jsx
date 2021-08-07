@@ -21,15 +21,15 @@ export const Widget = () => {
   const ref = Uebersicht.React.useRef()
   const { widgets, mpdWidgetOptions } = settings
   const { mpdWidget } = widgets
-  const { showSpecter } = mpdWidgetOptions
+  const { showSpecter, mpdHost, mpdPort, mpdFormatString } = mpdWidgetOptions
 
   const [state, setState] = Uebersicht.React.useState()
   const [loading, setLoading] = Uebersicht.React.useState(mpdWidget)
 
   const getMpd = async () => {
     const [playerState, trackInfo] = await Promise.all([
-      Uebersicht.run(`mpc --host 10.11.11.10 | head -n 2 | tail -n 1 | awk '{print substr($1,2,length($1)-2)}' 2>/dev/null || echo "stopped"`),
-      Uebersicht.run(`mpc --host 10.11.11.10 --format "%title%[ - %artist%]|[%file%]" | head -n 1`)
+      Uebersicht.run(`mpc --host ${mpdHost} --port ${mpdPort} | head -n 2 | tail -n 1 | awk '{print substr($1,2,length($1)-2)}' 2>/dev/null || echo "stopped"`),
+      Uebersicht.run(`mpc --host ${mpdHost} --port ${mpdPort} --format "${mpdFormatString}" | head -n 1`)
     ])
     if (Utils.cleanupOutput(trackInfo) === '') {
       setLoading(false)

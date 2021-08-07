@@ -64,4 +64,4 @@ end if
 --   end tell
 -- end if
 
-return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "Ò") & "\" }"
+return "{ \"browser\": \"" & browser & "\", \"title\": \"" & replace_chars(title_string, "\"", "ï¿½") & "\" }"
